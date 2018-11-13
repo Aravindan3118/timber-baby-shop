@@ -1,0 +1,100 @@
+{% comment %}
+<div class="container-fluid">
+<div class="col-md-4">
+
+</div>
+</div>
+{% endcomment %}
+<style media="screen">
+  .fb-col{
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  .fb-col:hover >.fbimglogo{
+    visibility: visible;
+  }
+  .fb-container:hover > div {
+  opacity: 0.2 ;
+  }
+  .fb-container:hover > div:hover {
+  opacity: 1.0;
+}
+  .fbimgsec{
+     position: relative;
+  }
+  .fbimglogo{
+     position: absolute;
+     top: 40%;
+     left:40%;
+     visibility: hidden;
+  }
+
+
+
+</style>
+<a href="{{section.settings.fburl}}">
+<div class="container-fluid fb-container"  data-aos="zoom-in-up">
+<h1 class="text-center">{{section.settings.fbtitle}}</h1>
+{% for block in section.blocks %}
+  <div class="col-md-4 col-sm-4 col-xs-4 fb-col" id="fb-col" {{ block.shopify_attributes }}>
+      <img class="fbimgsec" style="width:100%;" src="{{ block.settings.fb_img | img_url : '480x480'  }}">
+        <img  class="fbimglogo" src="{{ block.settings.fb_imglogo | img_url : '100x100'  }}">
+
+  </div>
+{% endfor %}
+</div>
+</a>
+
+{% schema %}
+  {
+    "name": "fb list",
+    "max_blocks": 12,
+    "settings": [
+      {
+        "type": "text",
+        "id": "fbtitle",
+        "label": "Heading",
+        "default": "Facebook Family"
+      },{
+        "type": "url",
+        "id": "fburl",
+        "label": "Hyperlink"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "image_picker",
+        "name": "fbimg",
+        "settings": [
+          {
+            "label": "feature image",
+            "id": "fb_img",
+            "type": "image_picker"
+          },
+          {
+            "label": "logo image",
+            "id": "fb_imglogo",
+            "type": "image_picker"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "fb_block",
+        "category": "facebook",
+        "blocks": [
+          {
+            "type": "image_picker"
+          },
+          {
+            "type": "image_picker"
+          },
+          {
+            "type": "image_picker"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

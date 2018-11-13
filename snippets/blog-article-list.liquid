@@ -1,0 +1,43 @@
+
+{% comment %}
+<ul>
+{% for article in blogs.baby-center.articles  %}
+ <li>{{ article.title | link_to: article.url }}</li>
+ <li>{{article.content}}</li>
+ <li>{{ article | img_url: '480x480' | img_tag: article.title }}</li>
+ <li>{{ article.created_at | date: "%a, %b %d, %y" }}</li>
+ <li>{{ article.comments }}</li>    <!-- returns the comment of the article -->
+{% endfor %}
+</ul>
+{% endcomment %}
+
+<div class="wrapper blog-article-section">
+ <div class="homepage-sections-wrapper homepage-sections-wrapper--white">
+   <div class="grid">
+
+
+
+       <div class="section-block--padding grid__item one-whole  ">
+         <div class="grid__item-inner grid__item-inner--html">
+           <div class="rte">
+             <div style="text-align:center;"><h2>Baby Centre</h2></div>
+           </div>
+         </div>
+       </div>
+
+
+        {% for article in blogs.baby-center.articles  limit: 3 %}
+       <div class="section-block--padding grid__item small--one-half one-third  babycentre_block">
+         <div class="grid__item-inner grid__item-inner--html">
+           <div class="rte">
+             <div style="text-align:left;">
+<a href="{{article.url}}" target="_blank">{{ article | img_url: '480x480' | img_tag: article.title }}</a>
+<h3><a href="{{article.url}}" target="_blank">{{ article.title }}</a></h3>{{article.content}}</div>
+           </div>
+         </div>
+       </div>
+        {% endfor %}
+
+ </div>
+</div>
+</div>

@@ -1,0 +1,240 @@
+<style>
+.navbar-default {
+    background-color: {{section.settings.navbackgroundcolor}};
+    padding:{{ section.settings.navtopgap}}px 0px;
+}
+/* Title */
+.navbar-default .navbar-brand {
+    color: #777;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+    color: #5E5E5E;
+}
+/* Link */
+.navbar-default .navbar-nav > li > a {
+    color: {{section.settings.linkcolor}};
+    font-size: {{section.settings.linksize}}px;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: #333;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #613591;
+    background-color: white;
+    border-bottom: 2px solid #613591;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+    color: #555;
+    background-color: #D5D5D5;
+}
+/* Caret */
+.navbar-default .navbar-nav > .dropdown > a .caret {
+    border-top-color: #777;
+    border-bottom-color: #777;
+}
+.navbar-default .navbar-nav > .dropdown > a:hover .caret,
+.navbar-default .navbar-nav > .dropdown > a:focus .caret {
+    border-top-color: #333;
+    border-bottom-color: #333;
+}
+.navbar-default .navbar-nav > .open > a .caret,
+.navbar-default .navbar-nav > .open > a:hover .caret,
+.navbar-default .navbar-nav > .open > a:focus .caret {
+    border-top-color: #555;
+    border-bottom-color: #555;
+}
+/* Mobile version */
+.navbar-default .navbar-toggle {
+    border-color: #DDD;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+    background-color: #DDD;
+}
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #CCC;
+}
+@media (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: #777;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+          color: #333;
+    }
+}
+
+  {% if section.settings.logo != blank %}
+    .site-header__logo-image {
+      max-width: {{ section.settings.logo_max_width }}px;
+    }
+  {% endif %}
+  .site-nav__dropdown a {
+      background-color: #fff;
+      margin-top: 5px;
+      text-transform: uppercase;
+      padding: 0;
+      border: none;
+      text-align: center;
+  }
+
+</style>
+<div data-section-id="{{ section.id }}" data-section-type="header-section">
+
+  <nav class="nav navbar-default navbar-fixed-top" role="navigation">
+    <div class="wrapper">
+      <div class="medium-down--hide">
+        {% comment %}
+          List out your main-menu linklist (default)
+
+          More info on linklists:
+            - http://docs.shopify.com/themes/liquid-variables/linklists
+        {% endcomment %}
+        <!-- begin site-nav -->
+        <div class="navbar-header">
+
+          {% if section.settings.logo != blank %}
+            {% capture image_size %}{{ section.settings.logo_max_width }}x{% endcapture %}
+            <a class="navbar-brand" href="/"><img src="{{ section.settings.logo | img_url: image_size }}"
+                 srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
+                 alt="{{ section.settings.logo.alt | default: shop.name }}"
+                 itemprop="logo"></a>
+
+          {% else %}
+            <!-- {{ shop.name }} -->
+            <a class="navbar-brand" href="/">{{ shop.name }}</a>
+          {% endif %}
+        </div>
+
+        <ul class="nav navbar-nav navbar-right" id="AccessibleNav">
+          {% for link in linklists.main-menu.links %}
+            {% comment %}
+              Create a dropdown menu by naming a linklist the same as a link in the parent nav
+
+              More info on dropdowns:
+                - http://docs.shopify.com/manual/your-website/navigation/create-drop-down-menu
+            {% endcomment %}
+            {% assign child_list_handle = link.title | handleize %}
+            {% if linklists[child_list_handle].links != blank %}
+              <li class="site-nav--has-dropdown{% if link.active %} active{% endif %} " aria-haspopup="true">
+                <a href="{{ link.url }}" class="site-nav__link">
+                  {{ link.title }}
+                  <span class="icon icon-arrow-down" aria-hidden="true"></span>
+                </a>
+                <ul class="site-nav__dropdown dropdown-menu">
+                  {% for childlink in linklists[child_list_handle].links %}
+                    <li {% if childlink.active %} class="active"{% endif %}>
+                      <a href="{{ childlink.url }}" class="site-nav__link">{{ childlink.title | escape }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </li>
+            {% else %}
+              <li {% if link.active %}class="active"{% endif %}>
+                <a href="{{ link.url }}" class="site-nav__link">{{ link.title }}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+          <li><a href="/cart">
+            {% comment %}
+            {% include 'icon-cart' %}
+            {{ 'layout.cart.title' | t }}
+            {% endcomment %}
+            <i class="fas fa-shopping-cart"></i>
+            ({{ cart.item_count }} {{ 'layout.cart.items_count' | t: count: cart.item_count }})
+          </a></li>
+        </ul>
+        <!-- //site-nav -->
+      </div>
+      <div class="large--hide medium-down--show">
+        <div class="grid">
+          <div class="grid__item one-half">
+            <div class="site-nav--mobile">
+              <button type="button" class="icon-fallback-text site-nav__link js-drawer-open-left" aria-controls="NavDrawer" aria-expanded="false">
+                <span class="icon icon-hamburger" aria-hidden="true"></span>
+                <span class="fallback-text">{{ 'layout.navigation.menu' | t }}</span>
+              </button>
+            </div>
+          </div>
+          <div class="grid__item one-half text-right">
+            <div class="site-nav--mobile">
+              <a href="/cart" class="js-drawer-open-right site-nav__link" aria-controls="CartDrawer" aria-expanded="false">
+                <span class="icon-fallback-text">
+                  <span class="icon icon-cart" aria-hidden="true"></span>
+                  <span class="fallback-text">{{ 'layout.cart.title' | t }}</span>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+</div>
+
+{% schema %}
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image"
+      },
+      {
+        "type": "color",
+        "id": "navbackgroundcolor",
+        "label": "background color"
+      },
+      {
+        "type": "color",
+        "id": "linkcolor",
+        "label": "link color"
+      },
+      {
+        "type": "range",
+        "id": "navtopgap",
+        "min": 10,
+        "max": 50,
+        "step": 5,
+        "unit": "px",
+        "label": "navbar space",
+        "default": 10
+      },
+      {
+        "type": "range",
+        "id": "linksize",
+        "min": 10,
+        "max": 50,
+        "step": 2,
+        "unit": "px",
+        "label": "Font size",
+        "default": 16
+      },
+      {
+        "type": "range",
+        "id": "logo_max_width",
+        "min": 50,
+        "max": 450,
+        "step": 10,
+        "unit": "px",
+        "label": "Custom logo width",
+        "default": 250
+      },
+      {
+        "type": "link_list",
+        "id": "main_linklist",
+        "label": "Menu",
+        "default": "main-menu"
+      }
+    ]
+  }
+{% endschema %}

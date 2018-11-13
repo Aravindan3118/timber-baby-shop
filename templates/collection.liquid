@@ -1,0 +1,159 @@
+<!-- /templates/collection.liquid -->
+{% comment %}
+
+  For more information on collection tags:
+    - http://docs.shopify.com/themes/liquid-variables/collection
+
+{% endcomment %}
+
+{% paginate collection.products by 12 %}
+
+{% include 'breadcrumb' %}
+{% comment %}
+  Use .grid--rev so that the collection tags appear below the products on mobile
+{% endcomment %}
+<div class="container-fluid collection_container">
+
+  <div class="col-md-4 img-des-coll">
+    {% unless collection.handle == 'all' %}
+    <div class="row main-img-des">
+        <div class="col_img ">
+          {% if collection.image %}
+          <img src="{{ collection.image | img_url: 'large' }}" alt="{{ featured_image.alt | escape }}" id="ProductPhotoImg">
+					{% endif %}
+          </div>
+          <div class="rte rte--header col_des">
+            {{ collection.description }}
+          </div>
+
+
+    </div>
+    {% endunless %}
+
+
+    <div class="row side-nav-coll">
+      <h1>Browse through our shop</h1>
+      {% for collection in collections %}
+    <ul>
+
+      <li><a href="{{collection.url}}">{{collection.title}}</a></li>
+    </ul>
+{% endfor %}
+    </div>
+
+    {% comment %}
+    <div class="row">
+      {% include 'collection-sidebar' %}
+    </div>
+    <div class="row">
+      <h3>pages</h3>
+
+      <h1>{{ page.title }}</h1>
+
+
+    </div>
+    {% endcomment %}
+  </div>
+
+
+  <div class="col-md-8">
+
+    {% comment %}
+      Different markup if a collection description exists
+    {% endcomment %}
+    <div class="row">
+      {% if collection.description != blank %}
+        <header class="section-header">
+          <h1 class="section-header__title">{{ collection.title }}</h1>
+
+        </header>
+        <hr>
+        <div class="section-header">
+          <div class="section-header__right">
+            {% include 'collection-sorting' %}
+          </div>
+        </div>
+      {% else %}
+        <header class="section-header">
+          <h1 class="section-header__title section-header__left">{{ collection.title }}</h1>
+          <div class="section-header__right">
+            {% include 'collection-sorting' %}
+          </div>
+        </header>
+      {% endif %}
+
+      {% comment %}
+        Use class grid-uniform to have evenly sized columns clear
+        each other properly at each breakpoint.
+      {% endcomment %}
+      <div class="grid-uniform">
+
+        {% comment %}
+          Loop through our products in the current collection.
+          See the snippet 'product-grid-item' for the layout.
+        {% endcomment %}
+        {% for product in collection.products %}
+
+          {% include 'product-grid-item' %}
+
+        {% else %}
+
+          {% if collection.handle == 'all' and current_tags == '' %}
+
+            {% comment %}
+              Add default products to help with onboarding for collections/all only
+            {% endcomment %}
+            {% unless emptyState %}
+              {{ 'theme-onboarding.css' | global_asset_url | stylesheet_tag }}
+              {% assign emptyState = true %}
+            {% endunless %}
+            {% include 'onboarding-empty-collection' %}
+
+          {% else %}
+
+            {% comment %}
+              If collection exists but is empty, display message
+            {% endcomment %}
+            <div class="grid__item">
+              <p>{{ 'collections.general.no_matches' | t }}</p>
+            </div>
+          {% endif %}
+
+        {% endfor %}
+    </div>
+    {% comment %}
+    <div class="row">
+        {% for key_value in collection.metafields.secondary_image %}
+        <li>{{ key_value[0] }}: {{ key_value[1] }}</li>
+        <img src="{{key_value[1]}}" alt="{{key_value[1]}}">
+        {% endfor %}
+
+     <!-- <img src="{{ collection.metafields['secondary_image']['image1'] }}">
+      <img src="{{ collection.metafields['secondary_image']['image2'] }}">
+      <img src="{{ collection.metafields['secondary_image']['image3'] }}">
+      <img src="{{ collection.metafields['secondary_image']['image4'] }}"> -->
+    </div>
+    {% endcomment %}
+    {% unless collection.handle == 'all' %}
+    <div class="row">
+      {% comment %}
+      {% section 'collection-des-img' %}
+      {% endcomment %}
+      {% section 'dynamic-featured-block' %}
+    </div>
+    {% endunless %}
+    </div>
+
+    {% if paginate.pages > 1 %}
+      <hr>
+      <div class="pagination">
+        {{ paginate | default_pagination | replace: '&laquo; Previous', '&larr;' | replace: 'Next &raquo;', '&rarr;' }}
+      </div>
+    {% endif %}
+
+  </div>
+
+
+</div>
+
+{% endpaginate %}

@@ -1,0 +1,40 @@
+<style media="screen">
+.promo-banner {
+   padding: 20vw;
+   background-size: cover !important;
+   position: relative;
+}
+</style>
+
+  <a href="{{section.settings.linkdiv}}">
+    <section class="promo-banner" style="background:url('{{section.settings.teamPhoto  | img_url: '2048x' }} ') no-repeat; ">
+
+  </section></a>
+
+
+{% schema %}
+{
+  "name":"main-banner",
+  "settings":[
+
+  {
+        "type": "image_picker",
+        "id": "teamPhoto",
+        "label": "Team Photo image"
+      },
+      {
+            "type": "url",
+            "id": "linkdiv",
+            "label": "Hyperlink"
+          }
+  ],
+"presets":[
+{
+"name":"main-banner",
+"category":"banner"
+}
+]
+
+}
+
+{% endschema %}

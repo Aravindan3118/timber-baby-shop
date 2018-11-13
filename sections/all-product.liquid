@@ -1,0 +1,21 @@
+<div class="row">
+  {% for product in collections['all'].products%}
+  {{product.title}}
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name":"all-products",
+  "settings":[
+
+  ],
+"presets":[
+{
+"name":"All products",
+"category":"pages"
+}
+]
+
+}
+{% endschema %}

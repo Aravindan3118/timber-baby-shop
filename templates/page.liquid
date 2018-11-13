@@ -1,0 +1,18 @@
+<!-- /templates/page.liquid -->
+{{ content_for_page }}
+<div class="grid container">
+
+  <div class="row">
+
+<h1>{{ page.title }}</h1>
+
+    {% comment %}
+      Regular page content goes here.
+    {% endcomment %}
+    <div class="rte">
+      {{ page.content }}
+    </div>
+
+  </div>
+
+</div>

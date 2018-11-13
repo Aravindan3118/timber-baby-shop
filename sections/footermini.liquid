@@ -1,0 +1,311 @@
+<style media="screen">
+  ul{
+    type:none;
+  }
+</style>
+<footer class="site-footer small--text-center" role="contentinfo">
+
+<div class="wrapper">
+
+  <div class="grid-uniform">
+
+    {% if settings.social_twitter_link != blank or settings.social_facebook_link != blank or settings.social_pinterest_link != blank or settings.social_google_plus_link != blank or settings.social_instagram_link != blank or settings.social_snapchat_link != blank or settings.social_tumblr_link != blank or settings.social_youtube_link != blank or settings.social_vimeo_link != blank or settings.social_fancy_link != blank or settings.social_rss_link != blank %}
+      {% assign show_social_icons = true %}
+    {% else %}
+      {% assign show_social_icons = false %}
+    {% endif %}
+
+    {% case section.blocks.size %}
+      {% when 0 %}
+      {% when 1 %}
+        {% assign column_width = 'col-md-4 col-md-offset-4' %}
+        {%- assign article_width = 480 -%}
+      {% when 2 %}
+        {% assign column_width = 'col-md-6' %}
+        {%- assign article_width = 480 -%}
+      {% when 3 %}
+        {% assign column_width = 'col-md-4' %}
+        {%- assign article_width = 435 -%}
+      {% when 4 %}
+        {% assign column_width = 'col-md-3' %}
+        {%- assign article_width = 410 -%}
+      {% when 5 %}
+        {% assign column_width = 'col-md-2' %}
+        {%- assign article_width = 335 -%}
+      {% when 6 %}
+        {% assign column_width = 'col-md-2' %}
+        {%- assign article_width = 335 -%}
+    {% endcase %}
+
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'blog' %}
+          <div class="grid__item {{ column_width }} site-footer__links">
+            <h3 class="h4"><a href="/blogs/{{ block.settings.blog }}">{{ 'layout.footer.blog_title' | t }}</a></h3>
+            {% assign article = blogs[block.settings.blog].articles.first %}
+            <p class="h5">{{ article.title | link_to: article.url }}</p>
+            {% if article.image %}
+              {% capture img_id %}ArticleImage-{{ section.id }}--{{ article.image.id }}{% endcapture %}
+              {% capture wrapper_id %}ArticleImageWrapper-{{ section.id }}--{{ article.image.id }}{% endcapture %}
+              {%- assign img_url = article.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+              {%- assign image_alt = article.title | escape -%}
+              {% include 'image-style' with image: article.image, width: article_width, height: 480, wrapper_id: wrapper_id, img_id: img_id %}
+              <p>
+                <div id="{{ wrapper_id }}" class="article__image-wrapper supports-js">
+                  <div style="padding-top:{{ 1 | divided_by: article.image.aspect_ratio | times: 100}}%;">
+                    <img id="{{ img_id }}"
+                         class="article__image lazyload"
+                         src="{{ article.image | img_url: '300x300' }}"
+                         data-src="{{ img_url }}"
+                         data-widths="[90, 120, 150, 180, 360, 480, 600, 750, 940, 1080, 1296]"
+                         data-aspectratio="{{ article.image.aspect_ratio }}"
+                         data-sizes="auto"
+                         alt="{{ image_alt }}">
+                  </div>
+                </div>
+              </p>
+
+              <noscript>
+                <p>{{ article | img_url: 'large' | img_tag: image_alt, 'article__image' | link_to: article.url }}</p>
+              </noscript>
+            {% endif %}
+            {% if article.excerpt.size > 0 %}
+            <div class="clearfix">
+              {{ article.excerpt }}
+            </div>
+            {% else %}
+              <p>{{ article.content | strip_html | truncatewords: 30 }}</p>
+            {% endif %}
+          </div>
+
+        {% when 'menu' %}
+          <div class="grid__item {{ column_width }}">
+            {% unless num_columns == 1 %}
+            <h3 class="h4">{{ block.settings.menu_title | escape }}</h3>
+            {% endunless %}
+            <ul type="none" class="site-footer__links{% if num_columns == 1 %} inline-list{% endif %}">
+              {% for link in linklists[block.settings.menu].links %}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+
+        {% when 'social' %}
+          <div class="grid__item {{ column_width }}">
+            <h3 class="h4">{{ 'layout.footer.social_title' | t }}</h3>
+              {% comment %}
+                Loop through the social network links
+              {% endcomment %}
+              {% include 'social-links' %}
+          </div>
+
+        {% when 'text' %}
+          <div class="grid__item {{ column_width }}">
+            <h3 class="h4">{{ block.settings.title | escape }}</h3>
+            <div class="rte">{{ block.settings.richtext }}</div>
+          </div>
+
+          {% when 'checkbox' %}
+          {% if block.settings.show_collection_list %}
+          <div class="grid__item {{ column_width }}">
+          <h4>{{block.settings.collection_list_name}}</h4>
+          <ul>
+            {% for collection in collections %}
+              <li><a href="{{collection.url}}">{{collection.title}}</a></li>
+            {% endfor %}
+          </ul>
+
+          </div>
+          {% endif %}
+          {% if block.settings.show_page_list %}
+          <div class="grid__item {{ column_width }}">
+          <h4>{{block.settings.page_list_name}}</h4>
+          <ul>
+            {% for page in pages %}
+              <li><a href="{{page.url}}">{{page.title}}</a></li>
+            {% endfor %}
+          </ul>
+
+          </div>
+          {% endif %}
+
+
+
+
+      {% endcase %}
+    {% endfor %}
+  </div>
+
+  <hr class="hr--small hr--clear">
+
+  <div class="grid">
+    <div class="grid__item text-center">
+      <p class="site-footer__links">{{ 'layout.footer.copyright' | t }} &copy; {{ 'now' | date: "%Y" }}, {{ shop.name | link_to: '/' }}. {{ powered_by_link }}</p>
+    </div>
+  </div>
+
+  {% if section.settings.show_methods_of_payment %}
+    {% unless shop.enabled_payment_types == empty %}
+    <div class="grid">
+      <div class="grid__item text-center">
+        <span class="visually-hidden">{{ 'general.payment.method' | t }}</span>
+        <ul class="inline-list payment-icons">
+          {% for type in shop.enabled_payment_types %}
+            <li>
+              {{ type | payment_type_svg_tag: class: 'icon' }}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endunless %}
+  {% endif %}
+</div>
+
+
+
+{% if settings.footer_newsletter_enable %}
+<div class="row">
+  <div class="grid__item large--one-third push--large--one-third medium--one-half">
+    {% comment %}
+      MailChimp is the go-to newsletter service for Shopify.
+      Use the link below to find your MailChimp form action
+      and insert it in your site settings.
+
+      If the form action URL is not set in the theme settings,
+      it will fallback to a customer form so you can still capture the email.
+
+      MailChimp newsletter integration and requirement:
+       - http://docs.shopify.com/support/configuration/store-customization/where-do-i-get-my-mailchimp-form-action
+    {% endcomment %}
+    <h3>{{ 'layout.footer.newsletter_title' | t }}</h3>
+    {% if settings.newsletter_form_action != blank %}
+      <form action="{{ settings.newsletter_form_action }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" class="input-group">
+        <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="EMAIL" id="mail" class="input-group-field" aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}" autocorrect="off" autocapitalize="off">
+        <span class="input-group-btn">
+          <input type="submit" class="btn" name="subscribe" id="subscribe" value="{{ 'general.newsletter_form.submit' | t }}">
+        </span>
+      </form>
+    {% else %}
+      {% form 'customer' %}
+        {{ form.errors | default_errors }}
+        {% if form.posted_successfully? %}
+          <p class="note form-success">{{ 'general.newsletter_form.confirmation' | t }}</p>
+        {% else %}
+          <div class="input-group">
+            <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="contact[email]" id="Email" class="input-group-field" aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}" autocorrect="off" autocapitalize="off">
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <span class="input-group-btn">
+              <input type="submit" class="btn" name="subscribe" id="subscribe" value="{{ 'general.newsletter_form.submit' | t }}">
+            </span>
+          </div>
+        {% endif %}
+      {% endform %}
+    {% endif %}
+
+  </div>
+  </div>
+{% endif %}
+</footer>
+
+
+{% schema %}
+{
+  "name": "Footer",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_methods_of_payment",
+      "label": "Payment icons"
+    }
+  ],
+
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id" : "menu_title" ,
+          "label" : "Heading",
+          "default": "Links"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Contact us"
+        },
+        {
+          "type": "richtext",
+          "id": "richtext",
+          "label": "Text"
+        }
+      ]
+    },
+    {
+      "type": "blog",
+      "name": "Latest blog post",
+      "settings": [
+        {
+          "type": "blog",
+          "id": "blog",
+          "label": "Blog"
+        }
+      ]
+    },
+    {
+      "type" : "checkbox",
+      "name" : "show collection list",
+      "settings" : [
+      {
+        "type": "checkbox",
+        "id": "show_collection_list",
+        "label": "Show Collection List"
+      },
+      {
+        "type": "text",
+        "id": "collection_list_name",
+        "label": "Collection List Title"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_page_list",
+        "label": "Show page List"
+      },
+      {
+        "type": "text",
+        "id": "page_list_name",
+        "label": "page List Title"
+      }
+      ]
+    },
+
+    {
+      "type": "social",
+      "name": "Social icons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Edit your social settings and accounts in General settings"
+        }
+      ]
+    }
+
+  ]
+}
+{% endschema %}

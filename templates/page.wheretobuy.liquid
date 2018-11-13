@@ -1,0 +1,50 @@
+<!-- /templates/page.liquid -->
+{{ content_for_page }}
+<div class="grid container-fluid page-container">
+
+  <div class="row">
+
+<h1>{{ page.title }}</h1>
+  {% section 'faq-header' %}
+
+
+    {% comment %}
+      Regular page content goes here.
+    {% endcomment %}
+    <div class="rte">
+      <div class="why">
+    <h2 class="homepage-sections--title">Where to buy BabyLove nappies</h2>
+    <p>We’re excited to offer our customers a seamless online shopping experience for all their favourite BabyLove products, as well as convenient in-store shopping.</p>
+    <br>
+    <p>All our products are still available at selected leading New Zealand retailers.</p>
+    </div>
+
+        <div class="wrapper where">
+    <div class="col-sm-4 store one">
+
+    <img src="{{ 'new_world_logo.jpg' | asset_url }}" alt="">
+
+    <p class="center">STONE FIELDS</p>
+    </div>
+    <div class="col-sm-4 store two">
+
+
+    <img src="{{ 'Four_Square_logo_2013.jpg' | asset_url }}" alt="">
+    <p class="center">ELLERSLIE WAIPU</p>
+    </div>
+    <div class="col-sm-4 store three">
+
+
+    <img src="{{ 'CWH_logo_1.jpg' | asset_url }}" alt="">
+    <p class="center">MOUNT ALBERT</p>
+    </div>
+    </div>
+
+      {{ page.content }}
+    </div>
+    {% section 'social-media-wrapper' %}
+    {% include "blog-article-list" %}
+    {% section 'fb-block' %}
+  </div>
+
+</div>

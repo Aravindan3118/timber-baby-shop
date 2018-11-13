@@ -1,0 +1,89 @@
+<style media="screen">
+.homepage-sections-wrapper.text-advert-section.homepage-sections-wrapper--dark {
+  background-color: #b3b0b6 !important;
+  padding: 10px 0;
+}
+.homepage-sections-wrapper {
+    overflow: hidden;
+}
+.text-advert-section {
+    text-align: center;
+}
+.homepage-sections-wrapper--dark {
+    background: #353943;
+    color: #fff;
+}
+.text-advert-section .grid__item {
+    padding: 20px 0px 20px 0px!important;
+    margin: 0 !important;
+
+}
+.text-advert-section .grid__item {
+    border-left: 1px solid white;
+}
+.text-advert-section .grid__item:first-child {
+    border-left: none;
+}
+
+.homepage-sections-wrapper--dark a {
+    color: #fff !important;
+}
+.homepage-sections-wrapper.text-advert-section.homepage-sections-wrapper--dark .text-advert-section .grid__item span.text-advert-section--header {
+    text-transform: uppercase;
+    font-size: 22px;
+    font-weight: bold;
+}
+.text-advert-section i{
+  padding-right: 10px;
+}
+
+</style>
+<div class="homepage-sections-wrapper text-advert-section homepage-sections-wrapper--dark">
+<div class="wrapper small--hide">
+  <div class="grid text-advert-section ">
+      <div class="grid__item large--one-third medium--one-third">
+        <a href="{{section.settings.fblink}}"><span class="text-advert-section--header h5 soc_facebook"><i class="fab fa-facebook"></i>Like us on Facebook</span></a>
+      </div>
+      <div class="grid__item large--one-third medium--one-third">
+        <a href="{{section.settings.twlink}}"><span class="text-advert-section--header h5 soc_twitter"><i class="fab fa-twitter"></i>Follow Us on Twitter</span></a>
+      </div>
+      <div class="grid__item large--one-third medium--one-third">
+        <a href="{{section.settings.instalink}}"><span class="text-advert-section--header h5 soc_instagram"><i class="fab fa-instagram"></i>Follow us on instagram</span></a>
+      </div>
+    </div>
+</div>
+
+</div>
+
+
+{% schema %}
+{
+  "name":"Social media Links",
+  "settings":[
+
+      {
+            "type": "url",
+            "id": "fblink",
+            "label": "Facebook Link"
+          },
+          {
+                "type": "url",
+                "id": "twlink",
+                "label": "Twitter Link"
+              },
+              {
+                    "type": "url",
+                    "id": "instalink",
+                    "label": "Instagram Link"
+                  }
+  ],
+"presets":[
+{
+"name":"Social wrapper",
+"category":"wrapper"
+}
+]
+
+}
+
+{% endschema %}

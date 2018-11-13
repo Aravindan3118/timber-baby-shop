@@ -1,0 +1,65 @@
+<style media="screen">
+  
+  .text-banner{
+      background-image:url('{{section.settings.banner_img  | img_url: '2048x' }} ');
+      height:500px;
+      width:100%;
+  }
+  @media only screen and (max-width: 600px) {
+    .text-banner{
+      width:auto;
+    }
+  }
+</style>
+<div class="container-fluid">
+
+  <div class="content text-banner col-md-12 col-sm-12">
+    {% comment %}
+    <h1 class="text-center">{{section.settings.content}}</h1>
+    {% endcomment %}
+    <div class="col-md-6">
+      <h2 style="padding-top:50px;">{{section.settings.banner-title}}</h2>
+      <p>{{section.settings.banner-description}}</p>
+      <a href="{{section.settings.linkdiv}}"><button type="button" name="button" class="mybtnlink">View T'S & C'S</button></a>
+    </div>
+
+  </div>
+</div>
+<br><br>
+
+{% schema %}
+{
+  "name":"banner-text",
+  "settings":[
+
+  {
+        "type": "image_picker",
+        "id": "banner_img",
+        "label": "Banner Image"
+      },
+      {
+            "type": "richtext",
+            "id": "banner-title",
+            "label": "Title"
+          },
+          {
+                "type": "text",
+                "id": "banner-description",
+                "label": "Description"
+              },
+      {
+            "type": "url",
+            "id": "linkdiv",
+            "label": "Hyperlink"
+          }
+  ],
+"presets":[
+{
+"name":"banner-text",
+"category":"banner"
+}
+]
+
+}
+
+{% endschema %}

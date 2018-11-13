@@ -1,0 +1,83 @@
+<style>
+.promo-banner_linkbar {
+background: {{section.settings.divcolor}};
+padding: 20px;
+height: 70px;
+}
+
+.promo-banner_linkbar .bar_wrap {
+    width: 750px;
+    margin: 0 auto;
+    text-align: center;
+}
+@media only screen and (max-width: 600px) {
+  .promo-banner_linkbar .bar_wrap {
+      width: 300px;
+      margin-top:-20px;
+      text-align: center;
+  }
+}
+.promo-banner_linkbar .bar_wrap p {
+    color: white;
+    display: inline-block;
+    font-size: 18px;
+}
+@media only screen and (max-width: 600px) {
+  .promo-banner_linkbar .bar_wrap p {
+      color: white;
+      display: block;
+      font-size: 18px;
+  }
+}
+.promo-banner_linkbar .bar_wrap a {
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 10px 40px;
+    text-transform: uppercase;
+    margin: 0 25px;
+}
+
+</style>
+
+
+<section class="promo-banner_linkbar">
+<div class="bar_wrap"><p>{{section.settings.promotitle}}</p><a href="{{section.settings.promolink}}">{{section.settings.urltext}}</a></div>
+</section>
+
+{% schema %}
+{
+  "name":"promowrap",
+  "settings":[
+      {
+        "type": "color",
+        "id": "divcolor",
+        "label": "color",
+        "default": "#623293"
+      },
+      {
+            "type": "text",
+            "id": "promotitle",
+            "label": "Title"
+          },
+      {
+            "type": "url",
+            "id": "promolink",
+            "label": "Hyperlink"
+          },
+          {
+            "type": "text",
+            "id": "urltext",
+            "label": "url text"
+          }
+  ],
+"presets":[
+{
+"name":"promowrap",
+"category":"promo"
+}
+]
+
+}
+
+{% endschema %}

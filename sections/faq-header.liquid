@@ -1,0 +1,101 @@
+<style media="screen">
+
+.header_featured {
+    padding: 15vw;
+    background-size: cover;
+    position: relative;
+}
+.header_featured p,h1{
+  color:white;
+}
+.header_featured .header_content {
+    position: relative;
+    top: 23%;
+    left: 0%;
+    width: 50%;
+    display: block;
+}
+
+.header_featured .header_content h1 {
+
+    font-size: 3.8em;
+    line-height: 1;
+}
+.header_featured .header_content p {
+    line-height: 1.3;
+    font-size: 24px;
+
+    font-weight: bold;
+    display: block;
+    margin-bottom: 45px;
+}
+</style>
+
+  {% assign page_handle = page.handle %}
+
+  {% for block in section.blocks %}
+		<!--/ ONLY print specific page data -->
+		{% if block.settings.page_handle == page_handle %}
+  <div id="shopify-section-faq-header" class="shopify-section image-with-text-overlay-wrapper shown-on-scroll animated fadeIn">
+    <div class="header_featured" style="background-image: url('{{block.settings.faqbanner  | img_url: '2048x' }} ')">
+  <div class="header_content">
+      <h1>{{block.settings.head}}</h1>
+
+      <p></p><p>{{block.settings.bodytext}}</p><p></p>
+
+
+  </div>
+  </div>
+
+
+
+  </div>
+  {% endif %}
+{% endfor %}
+{% schema %}
+{
+  "name":"Page head banner",
+  "settings":[
+
+
+
+  ],
+  "blocks": [
+    {
+      "type": "text_block",
+      "name": "Page Banner",
+      "settings": [
+    {
+          "type": "page",
+          "id": "page_handle",
+          "label": "Select a page"
+        },
+        {
+              "type": "image_picker",
+              "id": "faqbanner",
+              "label": "Banner Image"
+            },
+        {
+              "type": "text",
+              "id": "head",
+              "label": "HEADING"
+            },
+            {
+                  "type": "text",
+                  "id": "bodytext",
+                  "label": "body"
+                }
+
+      ]
+    }
+  ],
+"presets":[
+{
+"name":"faq-banner",
+"category":"banner"
+}
+]
+
+}
+
+{% endschema %}

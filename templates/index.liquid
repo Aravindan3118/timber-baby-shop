@@ -1,0 +1,19 @@
+<!-- /templates/index.liquid -->
+{% comment %}
+
+  This is the homepage of your site.
+
+  More info on global variables (available on all templates):
+    - http://docs.shopify.com/themes/liquid-variables/global
+{% endcomment %}
+{% comment %}
+<div class="container-fluid">
+{% section 'header' %}
+</div>
+{% endcomment %}
+
+<!-- {% section 'banner-main' %} -->
+{{ content_for_index }}
+{% comment %}
+{% section 'front-page-collection' %}
+{% endcomment %}

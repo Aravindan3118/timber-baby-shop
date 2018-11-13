@@ -1,0 +1,166 @@
+<style media="screen">
+.site-footer img {
+  display: inline-block;
+  margin-bottom: 15px;
+  vertical-align: middle;
+  margin-right: 20px;
+}
+.footer-article, .footer-content a, .footer-article a {
+    color: #767676;
+}
+.footer-header {
+    color: #613691;
+    font-size: 22px;
+    font-weight: bold;
+}
+.links-footer ul {
+    margin: 0;
+    padding: 0;
+}
+.links-footer ul li {
+    list-style-type: none;
+}
+
+</style>
+
+{% case section.blocks.size %}
+  {% when 0 %}
+  {% when 1 %}
+    {% assign column_width = 'col-md-4 col-sm-12 col-md-offset-4' %}
+    {%- assign article_width = 480 -%}
+  {% when 2 %}
+    {% assign column_width = 'col-md-6 col-sm-6 col-xs-6' %}
+    {%- assign article_width = 480 -%}
+  {% when 3 %}
+    {% assign column_width = 'col-md-4 col-sm-4 col-xs-4' %}
+    {%- assign article_width = 435 -%}
+  {% when 4 %}
+    {% assign column_width = 'col-md-3 col-sm-3 col-xs-3' %}
+    {%- assign article_width = 410 -%}
+  {% when 5 %}
+    {% assign column_width = 'col-md-2' %}
+    {%- assign article_width = 335 -%}
+  {% when 6 %}
+    {% assign column_width = 'col-md-2' %}
+    {%- assign article_width = 335 -%}
+{% endcase %}
+
+<footer class="site-footer small--text-center" role="contentinfo">
+  <div class="container">
+
+  <div class="row inner-row-footer">
+{% for block in section.blocks %}
+  {% case block.type %}
+  {% when 'footerimgdes' %}
+  <div class="{{ column_width }} site-footer">
+    <img src='{{block.settings.logo_img  | img_url: '480x480' }} '>
+        <div class="rte footer-article"><p>{{block.settings.brief}}</p></div>
+  </div>
+
+  {% when 'menu' %}
+  <div class="{{ column_width }} links-footer">
+    <div class="h3 footer-header">{{block.settings.menu_title}}</div>
+    <ul type="none" class="class="footer-content"">
+      {% for link in linklists[block.settings.menu].links %}
+        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endcase %}
+{% endfor %}
+</div>
+
+
+{% if settings.footer_newsletter_enable %}
+<div class="row">
+  <div class="grid__item large--one-third push--large--one-third medium--one-half">
+    {% comment %}
+      MailChimp is the go-to newsletter service for Shopify.
+      Use the link below to find your MailChimp form action
+      and insert it in your site settings.
+
+      If the form action URL is not set in the theme settings,
+      it will fallback to a customer form so you can still capture the email.
+
+      MailChimp newsletter integration and requirement:
+       - http://docs.shopify.com/support/configuration/store-customization/where-do-i-get-my-mailchimp-form-action
+    {% endcomment %}
+    <h3>{{ 'layout.footer.newsletter_title' | t }}</h3>
+    {% if settings.newsletter_form_action != blank %}
+      <form action="{{ settings.newsletter_form_action }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" class="input-group">
+        <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="EMAIL" id="mail" class="input-group-field" aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}" autocorrect="off" autocapitalize="off">
+        <span class="input-group-btn">
+          <input type="submit" class="btn" name="subscribe" id="subscribe" value="{{ 'general.newsletter_form.submit' | t }}">
+        </span>
+      </form>
+    {% else %}
+      {% form 'customer' %}
+        {{ form.errors | default_errors }}
+        {% if form.posted_successfully? %}
+          <p class="note form-success">{{ 'general.newsletter_form.confirmation' | t }}</p>
+        {% else %}
+          <div class="input-group">
+            <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="contact[email]" id="Email" class="input-group-field" aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}" autocorrect="off" autocapitalize="off">
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <span class="input-group-btn">
+              <input type="submit" class="btn" name="subscribe" id="subscribe" value="{{ 'general.newsletter_form.submit' | t }}">
+            </span>
+          </div>
+        {% endif %}
+      {% endform %}
+    {% endif %}
+
+  </div>
+  </div>
+    {% endif %}
+    </div>
+</footer>
+
+{% schema %}
+{
+  "name":"footer",
+  "max_blocks": 4,
+  "settings":[
+
+
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id" : "menu_title" ,
+          "label" : "Heading",
+          "default": "Links"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "footerimgdes",
+      "name": "img Description",
+      "settings": [
+      {
+            "type": "image_picker",
+            "id": "logo_img",
+            "label": "Team Photo image"
+          },
+          {
+                "type": "richtext",
+                "id": "brief",
+                "label": "Image content"
+              }
+      ]
+    }
+
+  ]
+
+}
+
+{% endschema %}

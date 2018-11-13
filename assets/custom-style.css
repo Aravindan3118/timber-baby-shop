@@ -1,0 +1,310 @@
+.main-body .shopify-section:first-child {
+    /* margin-top: -30px;  */
+}
+a{text-decoration: none;color:black;}
+a:hover{
+  text-decoration: none;
+}
+
+.col_des{
+  background-color: #ececec;
+padding: 40px 25px 25px;
+margin-top: -65px;
+text-align: center;
+display: block;
+margin-bottom: 25px;
+border-bottom: 1px solid #f3f4f5;
+padding-bottom: 25px;
+}
+.col_img img{
+  width: 100%;
+}
+.img-des-coll{
+  padding: 0px 150px 0px 0px;
+}
+@media only screen and (max-width: 600px) {
+  .img-des-coll{
+    padding: 0px 0px 0px 0px;
+  }
+}
+.collection_container{
+  padding-left: 100px;
+  padding-right: 100px;
+}
+.side-nav-coll{
+  display: block;
+margin-bottom: 25px;
+border-bottom: 1px solid #f3f4f5;
+padding-bottom: 25px;
+}
+.side-nav-coll ul li {
+    list-style-type: none;
+        margin-bottom: 1em;
+        font-size: 18px;
+}
+.btn__shop {
+    color: #5a19a2;
+    text-transform: uppercase;
+    display: inline-block;
+    width: 100%;
+    font-weight: bold;
+    position: relative;
+}
+.homepage-collection-link {
+    text-align: center;
+    padding: 20px 0 25px;
+}
+.coll-pro{
+  padding: 0px 40px;
+}
+.grid-image {
+    background: -moz-radial-gradient(center, ellipse cover, #fff 0%, #e6e7e8 100%);
+    background: -webkit-radial-gradient(center, ellipse cover, #fff 0%, #e6e7e8 100%);
+    height: 305px;
+    padding: 60px 20px 20px;
+}
+.grid-image img{
+    padding-bottom: 60px;
+    height: 305px;
+
+}
+@media only screen and (max-width: 600px) {
+  .grid-image {
+    background: -moz-radial-gradient(center, ellipse cover, #fff 0%, #e6e7e8 100%);
+    background: -webkit-radial-gradient(center, ellipse cover, #fff 0%, #e6e7e8 100%);
+    height: 305px;
+      padding: 0px;
+  }
+}
+.product-container{
+  padding: 0px 150px;
+}
+@media only screen and (max-width: 1200px) {
+  .product-container{
+    padding: 0px 15px;
+  }
+}
+.product-details-wrapper {
+    background: #f8f8f8;
+    padding: 40px;
+    position: relative;
+}
+.product-single__photos {
+    background: -moz-radial-gradient(center, ellipse cover, #fff 0%, #e6e7e8 100%);
+    background: -webkit-radial-gradient(center, ellipse cover, #fff 0%, #e6e7e8 100%);
+    /* background: radial-gradient(ellipse at center, #fff 0%, #e6e7e8 100%); */
+    padding: 50px 0;
+}
+.page-container{
+    padding: 0px 10px;
+}
+@media (max-width: 1466px){
+.header_featured .header_content {
+    width: 45%;
+}
+}
+@media (max-width: 700px){
+body#faq .header_featured {
+    background-position: inherit;
+    background-repeat: no-repeat;
+}
+}
+@media (max-width: 1466px){
+.header_featured {
+    padding: 20vw;
+}
+}
+@media (max-width: 1650px){
+.header_featured {
+    padding: 18vw;
+}
+}
+.why{
+    width: 55% !important;
+    text-align: center;
+    margin: auto;
+    padding: 50px 0 75px;
+}
+.why h2 {
+    color: #613591;
+    text-align: center;
+    padding: 0px 0 25px;
+}
+.why p {
+    color: #666666;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+.wrapper {
+
+    max-width: 1660px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+@media screen and (min-width: 480px){
+.wrapper {
+    padding: 0 30px;
+}
+}
+.col-sm-4.store img, body#where-to-buy .col-sm-4.store p.center {
+    max-width: 90%;
+    text-align: center;
+}
+.col-sm-4.store p{    margin: 20px 0 65px 0;}
+.blog-article-section {
+  padding-top: 65px;
+}
+.contact-content{
+  padding:20px 150px;
+}
+div.contact_details {
+    padding: 70px 0 65px;
+    display: block;
+    float: left;
+    width: 100%;
+}
+ div.contact_details div.details {
+    width: 50%;
+    float: left;
+}
+div.contact_details div.details h2 {
+    color: #65378a;
+}
+div.contact_details div.details strong {
+    text-transform: uppercase;
+    font-size: 18px;
+    display: block;
+    margin: 25px 0;
+    color: #666666;
+}
+div.contact_details div.details address {
+    font-size: 18px;
+    font-style: normal;
+    display: block;
+    margin-bottom: 25px;
+    color: #666666;
+}
+div.contact_details div.details b {
+    font-size: 20px;
+    color: #666666;
+}
+.mybtnlink{
+  background-color: transparent;
+border: 2px solid #613692;
+color: #613692;
+border-radius: 5px;
+text-transform: uppercase;
+font-size: 20px;
+padding: 10px 44px;
+height: auto;
+margin: 0;
+transition: 0.5s;
+font-weight: bold;
+text-decoration: none !important;
+}
+.mybtnlink:hover {
+    background-color: #613692;
+    color: #fff;
+    transition: 0.5s;
+}
+.caption {
+  font-size: 75px;
+    font-weight: bold;
+    text-align: center;
+        margin-bottom: 0;
+}
+.caption2{
+  font-size: 75px;
+letter-spacing: 23px;
+padding-left: 10px;
+font-weight: 800;
+width: 100% !important;
+text-align: center;
+}
+.box-btn{
+  border:1px solid #703b97;
+  border-radius: 5px;
+font-size: 18px;
+padding: 10px 65px;
+margin-left: 4px;
+text-align: center;
+}
+.btn-p{
+  padding-top: 50px;
+}
+
+.featured_blocks {
+    float: left;
+    width: 100%;
+    background: #f9fafb;
+    margin: 55px 0 0;
+}
+.featured_blocks .title_block {
+    float: left;
+    width: 50%;
+    background: #f9fafb;
+    padding: 40px;
+    position: relative;
+    top: 30px;
+}
+.featured_blocks .img_block {
+    float: left;
+    width: 25%;
+    display: flex;
+    overflow: hidden;
+    background-color: #643a88;
+    position: relative;
+}
+.featured_blocks .img_block .image {
+    display: grid;
+}
+.featured_blocks .img_block img {
+    width: 100%;
+}
+.img_block .icon {
+    display: none;
+}
+
+.icon {
+    /* display: inline-block; */
+    height: auto;
+    /* vertical-align: middle; */
+    width: auto;
+}
+.featured_blocks .img_block .content, .featured_blocks .img_block .icon {
+    display: none;
+}
+.featured_blocks .img_block:hover .content {
+    display: block;
+    position: absolute;
+    bottom: 0%;
+    padding: 10px 25px 0;
+    text-align: center;
+    background-color: #fafafa;
+    width: 100%;
+    height: 100px;
+}
+.featured_blocks .img_block:hover .icon {
+    display: block !important;
+    position: absolute;
+    top: 20%;
+    left: 35%;
+}
+.content {
+    background-size: cover !important;
+    position: relative;
+}
+.featured_blocks .title_block strong {
+    color: #65378a;
+    font-size: 48px;
+    line-height: 1;
+    text-transform: capitalize;
+}
+.featured_blocks .title_block p {
+    text-transform: capitalize;
+    color: #656667;
+    display: block;
+    margin-top: 10px;
+    font-size: 19px;
+}

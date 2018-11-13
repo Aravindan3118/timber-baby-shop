@@ -1,0 +1,71 @@
+<style media="screen">
+
+</style>
+{% assign collection_handle = collection.handle %}
+<div class="featured_blocks">
+<div class="title_block"><strong>BabyLove <br>{{collection.title}}</strong><p>For boys and girls</p></div>
+{% for block in section.blocks %}
+{% if block.settings.collection_handle == collection_handle %}
+<div class="img_block" style="opacity: 1;">
+<div class="image"><img src="{{ block.settings.feature_img | img_url : '480x480'  }}"></div>
+<div class="icon"><img src="{{ block.settings.block_imglogo | img_url : '100x100'  }}"></div>
+<div class="content"><strong>{{block.settings.blocktitle}}</strong><p>{{block.settings.blockdescription}}</p></div></div>
+{% endif %}
+{% endfor %}
+ </div>
+
+
+{% schema %}
+  {
+    "name": "collection img",
+
+
+    "blocks": [
+      {
+        "type": "image_picker",
+        "name": "featured block",
+        "settings": [
+        {
+              "type": "collection",
+              "id": "collection_handle",
+              "label": "Select a collection"
+            },
+            {
+            "label": "feature image",
+            "id": "feature_img",
+            "type": "image_picker"
+          },
+          {
+            "label": "logo image",
+            "id": "block_imglogo",
+            "type": "image_picker"
+          },
+          {
+            "label": "block-title",
+            "id": "blocktitle",
+            "type": "text"
+          },
+          {
+            "label": "block-description",
+            "id": "blockdescription",
+            "type": "text"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "collection_block",
+        "category": "collection",
+        "blocks": [
+        {
+          "type": "image_picker"
+        },
+        {
+          "type": "image_picker"
+        }
+        ]
+      }
+    ]
+  }
+{% endschema %}
